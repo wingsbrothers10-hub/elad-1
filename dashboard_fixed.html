@@ -1,0 +1,749 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>אלעד רבי | לוח לידים</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;700;800;900&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#080809;--s1:#0f0f12;--s2:#141418;--s3:#1a1a20;
+  --border:rgba(255,255,255,0.055);--border2:rgba(255,255,255,0.12);
+  --text:#ececf4;--sub:#888898;
+  --gold:#c9a84c;--gold-bg:rgba(201,168,76,0.12);
+  --hot:#e84040;--hot-bg:rgba(232,64,64,0.12);
+  --warm:#e87d20;--warm-bg:rgba(232,125,32,0.12);
+  --cold:#3a9de8;--cold-bg:rgba(58,157,232,0.12);
+  --green:#2ecc8e;--green-bg:rgba(46,204,142,0.1);
+  --mono:'DM Mono',monospace;--body:'Heebo',sans-serif;
+}
+html{scroll-behavior:smooth}
+body{font-family:var(--body);background:var(--bg);color:var(--text);min-height:100vh}
+body::after{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");pointer-events:none;z-index:9999}
+.amb{position:fixed;border-radius:50%;filter:blur(120px);pointer-events:none;z-index:0}
+.a1{width:500px;height:500px;top:-150px;left:40%;background:radial-gradient(circle,rgba(201,168,76,0.06),transparent 70%)}
+.a2{width:400px;height:400px;bottom:0;right:-100px;background:radial-gradient(circle,rgba(232,64,64,0.05),transparent 70%)}
+.shell{position:relative;z-index:1;max-width:1480px;margin:0 auto;padding:0 28px 80px}
+
+/* Header */
+header{display:flex;align-items:center;justify-content:space-between;padding:30px 0 28px;border-bottom:1px solid var(--border);margin-bottom:36px;animation:fD .5s ease both}
+.brand{display:flex;align-items:center;gap:14px}
+.bmark{width:46px;height:46px;border-radius:12px;background:linear-gradient(135deg,#1a1a20,#0f0f12);border:1px solid var(--gold);display:flex;align-items:center;justify-content:center;font-size:20px;box-shadow:0 0 24px rgba(201,168,76,0.2),inset 0 1px 0 rgba(255,255,255,0.05)}
+.btxt h1{font-size:18px;font-weight:800;letter-spacing:-.4px}
+.btxt p{font-size:12px;color:var(--sub);font-weight:400}
+.hright{display:flex;align-items:center;gap:10px}
+.pill{display:inline-flex;align-items:center;gap:7px;padding:7px 14px;border-radius:100px;font-size:12.5px;font-weight:500;border:1px solid transparent}
+.pill-live{background:var(--green-bg);border-color:rgba(46,204,142,0.25);color:var(--green)}
+.pulse{width:6px;height:6px;border-radius:50%;background:var(--green);animation:blink 2s infinite}
+.btn-ref{padding:8px 16px;border-radius:10px;border:1px solid var(--border2);background:var(--s2);color:var(--sub);font-family:var(--body);font-size:13px;cursor:pointer;transition:all .15s}
+.btn-ref:hover{color:var(--text);border-color:var(--gold)}
+.btn-ref.spin{animation:spinA .7s linear infinite}
+
+/* KPI */
+.kpi-row{display:grid;grid-template-columns:repeat(5,1fr);gap:14px;margin-bottom:28px;animation:fU .5s .1s ease both}
+.kpi{background:var(--s1);border:1px solid var(--border);border-radius:16px;padding:20px 22px;position:relative;overflow:hidden;transition:transform .2s,border-color .2s;cursor:default}
+.kpi:hover{transform:translateY(-3px);border-color:var(--border2)}
+.kpi::before{content:'';position:absolute;top:-30px;left:50%;width:80px;height:80px;border-radius:50%;opacity:.6;filter:blur(25px)}
+.kpi.kt::before{background:var(--gold)} .kpi.kh::before{background:var(--hot)}
+.kpi.kw::before{background:var(--warm)} .kpi.kc::before{background:var(--cold)}
+.kpi.ka::before{background:var(--green)}
+.kpi-lbl{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:1.2px;color:var(--sub);margin-bottom:10px}
+.kpi-val{font-family:var(--mono);font-size:40px;font-weight:500;line-height:1;margin-bottom:6px}
+.kpi.kt .kpi-val{color:var(--gold)} .kpi.kh .kpi-val{color:var(--hot)}
+.kpi.kw .kpi-val{color:var(--warm)} .kpi.kc .kpi-val{color:var(--cold)}
+.kpi.ka .kpi-val{color:var(--green)}
+.kpi-sub{font-size:12px;color:var(--sub)}
+
+/* Alert */
+.alert{display:none;align-items:center;gap:14px;padding:14px 20px;background:var(--hot-bg);border:1px solid rgba(232,64,64,0.3);border-radius:14px;margin-bottom:22px}
+.alert.show{display:flex}
+.a-ico{font-size:22px;flex-shrink:0}
+.a-body strong{color:var(--hot);font-size:14px;font-weight:700}
+.a-body p{font-size:12px;color:var(--sub);margin-top:2px}
+.a-chips{margin-right:auto;display:flex;gap:8px;flex-wrap:wrap}
+.chip{padding:4px 10px;background:rgba(232,64,64,0.15);border:1px solid rgba(232,64,64,0.25);border-radius:100px;font-size:12px;color:var(--hot);font-weight:600}
+
+/* Controls */
+.ctrl{display:flex;align-items:center;gap:8px;margin-bottom:16px;flex-wrap:wrap;animation:fU .5s .15s ease both}
+.tab{padding:8px 16px;border-radius:10px;border:1px solid var(--border);background:transparent;color:var(--sub);font-family:var(--body);font-size:13px;font-weight:500;cursor:pointer;transition:all .15s;display:flex;align-items:center;gap:6px}
+.tab:hover{border-color:var(--border2);color:var(--text)}
+.tab.on{color:var(--text);border-color:var(--border2);background:var(--s2)}
+.tab.on.fh{color:var(--hot);border-color:rgba(232,64,64,.4);background:var(--hot-bg)}
+.tab.on.fw{color:var(--warm);border-color:rgba(232,125,32,.4);background:var(--warm-bg)}
+.tab.on.fc{color:var(--cold);border-color:rgba(58,157,232,.4);background:var(--cold-bg)}
+.tab.on.fa{color:var(--green);border-color:rgba(46,204,142,.4);background:var(--green-bg)}
+.tcnt{font-family:var(--mono);font-size:11px;padding:1px 6px;border-radius:6px;background:rgba(255,255,255,.07)}
+.spacer{flex:1}
+.srch{position:relative}
+.srch input{background:var(--s1);border:1px solid var(--border);border-radius:10px;padding:9px 14px 9px 38px;color:var(--text);font-family:var(--body);font-size:13px;width:240px;outline:none;transition:border-color .2s;direction:rtl}
+.srch input::placeholder{color:var(--sub)}
+.srch input:focus{border-color:rgba(201,168,76,.5)}
+.srch-i{position:absolute;left:12px;top:50%;transform:translateY(-50%);color:var(--sub);font-size:14px;pointer-events:none}
+.srt-sel{background:var(--s1);border:1px solid var(--border);border-radius:10px;padding:9px 14px;color:var(--sub);font-family:var(--body);font-size:13px;outline:none;cursor:pointer;transition:border-color .2s}
+.srt-sel:hover{border-color:var(--border2);color:var(--text)}
+
+/* Table */
+.tbl-wrap{background:var(--s1);border:1px solid var(--border);border-radius:18px;overflow:hidden;animation:fU .5s .2s ease both}
+table{width:100%;border-collapse:collapse}
+thead{background:var(--s2);border-bottom:1px solid var(--border)}
+th{padding:13px 18px;text-align:right;font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:1.3px;color:var(--sub);white-space:nowrap;user-select:none}
+td{padding:14px 18px;font-size:13.5px;border-bottom:1px solid var(--border);vertical-align:middle}
+tr:last-child td{border-bottom:none}
+tbody tr{transition:background .12s}
+tbody tr:hover td{background:rgba(255,255,255,.018)}
+
+/* Name clickable */
+.name-btn{
+  display:inline-flex;align-items:center;gap:10px;cursor:pointer;
+  border-radius:10px;padding:4px 8px 4px 4px;
+  transition:background .15s;
+  margin:-4px -8px -4px -4px;
+}
+.name-btn:hover{background:rgba(201,168,76,.08)}
+.name-btn:hover .name-txt{color:var(--gold)}
+.name-btn:hover .name-arrow{opacity:1;transform:translateX(0)}
+.name-txt{font-weight:600;transition:color .15s}
+.name-phone{display:block;font-size:11px;color:var(--sub);font-family:var(--mono);margin-top:2px}
+.name-arrow{opacity:0;transform:translateX(4px);transition:all .15s;font-size:11px;color:var(--gold)}
+
+.av{width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:800;flex-shrink:0;border:1px solid rgba(255,255,255,.06)}
+
+/* Badges */
+.badge{display:inline-flex;align-items:center;gap:5px;padding:4px 11px;border-radius:8px;font-size:12px;font-weight:700;white-space:nowrap}
+.badge.h{background:var(--hot-bg);color:var(--hot);border:1px solid rgba(232,64,64,.25)}
+.badge.w{background:var(--warm-bg);color:var(--warm);border:1px solid rgba(232,125,32,.25)}
+.badge.c{background:var(--cold-bg);color:var(--cold);border:1px solid rgba(58,157,232,.25)}
+.badge.d{background:rgba(120,120,140,.1);color:#666;border:1px solid rgba(120,120,140,.2)}
+.badge.p{background:var(--gold-bg);color:var(--gold);border:1px solid rgba(201,168,76,.25)}
+
+/* Score */
+.sc-cell{display:flex;align-items:center;gap:10px}
+.sc-n{font-family:var(--mono);font-size:13px;font-weight:500;min-width:22px;text-align:center}
+.sc-bg{flex:1;height:3px;background:rgba(255,255,255,.07);border-radius:10px;overflow:hidden;min-width:50px}
+.sc-fill{height:100%;border-radius:10px}
+
+/* Status */
+.sdot{display:inline-flex;align-items:center;gap:6px;font-size:12px;color:var(--sub)}
+.sdot::before{content:'';width:6px;height:6px;border-radius:50%;background:currentColor;flex-shrink:0}
+.sdot.done{color:var(--green)} .sdot.prog{color:var(--warm);animation:blink 1.5s infinite} .sdot.disq{color:#555}
+
+/* Empty */
+.empty{text-align:center;padding:70px 20px;color:var(--sub)}
+.empty-i{font-size:42px;margin-bottom:14px}
+.empty p{font-size:15px}
+
+/* Footer */
+.tbl-foot{display:flex;align-items:center;justify-content:space-between;padding:14px 20px;border-top:1px solid var(--border);background:var(--s2)}
+.tbl-foot span{font-size:12.5px;color:var(--sub)}
+.pages{display:flex;gap:5px}
+.pg{width:30px;height:30px;border-radius:7px;border:1px solid var(--border);background:transparent;color:var(--sub);cursor:pointer;font-size:12.5px;display:flex;align-items:center;justify-content:center;transition:all .12s;font-family:var(--body)}
+.pg:hover{border-color:var(--border2);color:var(--text)}
+.pg.on{background:var(--gold);border-color:var(--gold);color:#080809;font-weight:700}
+
+/* Charts */
+.chart-row{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:14px;animation:fU .5s .25s ease both}
+.cc{background:var(--s1);border:1px solid var(--border);border-radius:16px;padding:22px}
+.cc-title{font-size:12px;text-transform:uppercase;letter-spacing:1.2px;color:var(--sub);font-weight:600;margin-bottom:18px}
+.donut-wrap{display:flex;align-items:center;gap:24px}
+.donut-leg{flex:1}
+.leg-item{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;font-size:13px}
+.leg-dot{width:8px;height:8px;border-radius:50%;margin-left:8px;flex-shrink:0}
+.leg-lbl{display:flex;align-items:center;color:var(--sub);flex:1}
+.leg-val{font-family:var(--mono);font-weight:500;color:var(--text)}
+.bars{display:flex;flex-direction:column;gap:10px}
+.bar-r{display:flex;align-items:center;gap:10px}
+.bar-lbl{font-size:12px;color:var(--sub);min-width:100px;text-align:left;direction:ltr}
+.bar-track{flex:1;height:8px;background:rgba(255,255,255,.05);border-radius:10px;overflow:hidden}
+.bar-seg{height:100%;border-radius:10px;transition:width 1s ease}
+.bar-val{font-size:12px;font-family:var(--mono);color:var(--sub);min-width:20px;text-align:left;direction:ltr}
+
+/* ════════════════════════════════
+   PROFILE DRAWER
+   ════════════════════════════════ */
+.overlay{position:fixed;inset:0;background:rgba(4,4,6,0.75);backdrop-filter:blur(8px);z-index:1000;opacity:0;pointer-events:none;transition:opacity .3s}
+.overlay.open{opacity:1;pointer-events:all}
+
+.drawer{
+  position:fixed;top:0;right:0;bottom:0;width:500px;max-width:100vw;
+  background:var(--s1);border-left:1px solid var(--border2);
+  z-index:1001;
+  transform:translateX(100%);transition:transform .35s cubic-bezier(0.32,0,0,1);
+  overflow-y:auto;display:flex;flex-direction:column;
+}
+.drawer.open{transform:translateX(0)}
+
+/* Drawer hero */
+.drw-hero{
+  padding:28px 24px 22px;
+  border-bottom:1px solid var(--border);
+  position:relative;
+  overflow:hidden;
+}
+.drw-hero::before{
+  content:'';position:absolute;top:-60px;left:-60px;
+  width:200px;height:200px;border-radius:50%;
+  opacity:.4;filter:blur(60px);
+}
+.drw-hero.hot::before{background:var(--hot)}
+.drw-hero.warm::before{background:var(--warm)}
+.drw-hero.cold::before{background:var(--cold)}
+.drw-hero.disqualified::before,.drw-hero.pending::before{background:var(--gold)}
+
+.drw-top{display:flex;align-items:flex-start;gap:16px;margin-bottom:18px;position:relative}
+.drw-av{width:56px;height:56px;border-radius:15px;display:flex;align-items:center;justify-content:center;font-size:24px;font-weight:800;flex-shrink:0;border:1px solid rgba(255,255,255,.08)}
+.drw-info{flex:1}
+.drw-info h2{font-size:22px;font-weight:800;letter-spacing:-.4px;margin-bottom:4px}
+.drw-info p{font-size:13px;color:var(--sub);font-family:var(--mono)}
+.drw-close{
+  position:absolute;top:0;left:0;
+  width:34px;height:34px;border-radius:9px;border:1px solid var(--border);
+  background:var(--s2);color:var(--sub);cursor:pointer;
+  display:flex;align-items:center;justify-content:center;font-size:17px;
+  transition:all .15s;
+}
+.drw-close:hover{border-color:var(--hot);color:var(--hot)}
+
+.drw-badges{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.score-pill{
+  display:flex;align-items:center;gap:8px;
+  padding:8px 14px;border-radius:100px;
+  background:var(--s2);border:1px solid var(--border2);
+  font-family:var(--mono);font-size:15px;font-weight:500;
+}
+.score-pill .of{font-size:11px;color:var(--sub);margin-right:2px}
+
+/* Drawer section */
+.drw-sec{padding:20px 24px;border-bottom:1px solid var(--border)}
+.drw-sec:last-child{border-bottom:none;padding-bottom:40px}
+.drw-sec-title{
+  font-size:10.5px;text-transform:uppercase;letter-spacing:1.5px;
+  color:var(--sub);font-weight:700;margin-bottom:16px;
+  display:flex;align-items:center;gap:8px;
+}
+.drw-sec-title::after{content:'';flex:1;height:1px;background:var(--border)}
+
+/* Info grid */
+.info-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.ifield label{display:block;font-size:10px;text-transform:uppercase;letter-spacing:.9px;color:var(--sub);font-weight:600;margin-bottom:5px}
+.ifield .v{font-size:14px;font-weight:500;color:var(--text)}
+.ifield .v.mn{font-family:var(--mono);font-size:13px}
+.ifield .v.dim{color:var(--sub)}
+.ifield .v.gold{color:var(--gold)}
+
+/* Answer question block */
+.q-block{margin-bottom:18px}
+.q-block:last-child{margin-bottom:0}
+.q-label{
+  font-size:12.5px;color:var(--sub);margin-bottom:9px;font-weight:500;
+  padding-right:4px;
+}
+.q-opts{display:flex;flex-direction:column;gap:5px}
+.q-opt{
+  display:flex;align-items:center;gap:10px;
+  padding:9px 12px;border-radius:10px;font-size:13px;
+  border:1px solid var(--border);background:var(--s2);color:var(--sub);
+  transition:all .15s;
+}
+.q-opt.sel{border-color:var(--border2);background:rgba(255,255,255,.04);color:var(--text)}
+/* chosen = the one user picked */
+.q-opt.chosen{font-weight:600}
+.q-opt.chosen.pos{background:var(--green-bg);border-color:rgba(46,204,142,.3);color:var(--green)}
+.q-opt.chosen.mid{background:var(--warm-bg);border-color:rgba(232,125,32,.3);color:var(--warm)}
+.q-opt.chosen.neg{background:var(--hot-bg);border-color:rgba(232,64,64,.3);color:var(--hot)}
+.q-opt.chosen.neu{background:var(--gold-bg);border-color:rgba(201,168,76,.3);color:var(--gold)}
+
+.q-check{
+  width:18px;height:18px;border-radius:5px;border:1px solid var(--border);
+  display:flex;align-items:center;justify-content:center;font-size:10px;flex-shrink:0;
+  transition:all .15s;
+}
+.q-opt.chosen .q-check{background:currentColor;border-color:currentColor;color:#080809}
+.q-opt.chosen.pos .q-check{background:var(--green);border-color:var(--green);color:#080809}
+.q-opt.chosen.mid .q-check{background:var(--warm);border-color:var(--warm);color:#fff}
+.q-opt.chosen.neg .q-check{background:var(--hot);border-color:var(--hot);color:#fff}
+.q-opt.chosen.neu .q-check{background:var(--gold);border-color:var(--gold);color:#080809}
+
+.q-pts{margin-right:auto;font-size:11px;font-family:var(--mono);color:var(--sub);padding:2px 7px;border-radius:5px;background:rgba(255,255,255,.05)}
+.q-opt.chosen .q-pts{color:inherit;background:rgba(255,255,255,.07)}
+
+/* ── Anims ── */
+@keyframes fD{from{opacity:0;transform:translateY(-12px)}to{opacity:1;transform:translateY(0)}}
+@keyframes fU{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.4}}
+@keyframes spinA{to{transform:rotate(360deg)}}
+
+@media(max-width:900px){.kpi-row{grid-template-columns:repeat(3,1fr)}.chart-row{grid-template-columns:1fr}.drawer{width:100vw}}
+@media(max-width:600px){.kpi-row{grid-template-columns:repeat(2,1fr)}.srch input{width:160px}}
+</style>
+</head>
+<body>
+<div class="amb a1"></div><div class="amb a2"></div>
+
+<!-- Profile Drawer -->
+<div class="overlay" id="overlay" onclick="closeDrawer()"></div>
+<div class="drawer" id="drawer">
+  <div class="drw-hero" id="drwHero">
+    <div class="drw-top">
+      <div class="drw-av" id="drwAv"></div>
+      <div class="drw-info">
+        <h2 id="drwName"></h2>
+        <p id="drwPhone"></p>
+      </div>
+      <button class="drw-close" onclick="closeDrawer()">✕</button>
+    </div>
+    <div class="drw-badges" id="drwBadges"></div>
+  </div>
+
+  <!-- Section: Contact -->
+  <div class="drw-sec">
+    <div class="drw-sec-title">פרטי קשר</div>
+    <div class="info-grid">
+      <div class="ifield"><label>שם מלא</label><div class="v" id="di-name"></div></div>
+      <div class="ifield"><label>גיל</label><div class="v" id="di-age"></div></div>
+      <div class="ifield"><label>טלפון</label><div class="v mn" id="di-phone"></div></div>
+      <div class="ifield"><label>אימייל</label><div class="v mn" id="di-email"></div></div>
+      <div class="ifield"><label>זמינות לשיחה</label><div class="v" id="di-avail"></div></div>
+      <div class="ifield"><label>אופן שיחה</label><div class="v" id="di-meeting"></div></div>
+      <div class="ifield"><label>נרשם</label><div class="v mn" id="di-date"></div></div>
+      <div class="ifield"><label>ניקוד סופי</label><div class="v gold" id="di-score"></div></div>
+    </div>
+  </div>
+
+  <!-- Section: Answers -->
+  <div class="drw-sec">
+    <div class="drw-sec-title">תשובות מהשיחה</div>
+    <div id="drwAnswers"></div>
+  </div>
+</div>
+
+<div class="shell">
+<header>
+  <div class="brand">
+    <div class="bmark">✂️</div>
+    <div class="btxt"><h1>אקדמיית אלעד רבי</h1><p>מרכז ניהול לידים</p></div>
+  </div>
+  <div class="hright">
+    <div class="pill pill-live"><div class="pulse"></div> מחובר</div>
+    <button class="btn-ref" id="btnRef" onclick="doRefresh()">↻ רענן</button>
+  </div>
+</header>
+
+<!-- KPI -->
+<div class="kpi-row">
+  <div class="kpi kt"><div class="kpi-lbl">סה"כ לידים</div><div class="kpi-val" id="kT">—</div><div class="kpi-sub">כל הסטטוסים</div></div>
+  <div class="kpi kh"><div class="kpi-lbl">🔥 חמים</div><div class="kpi-val" id="kH">—</div><div class="kpi-sub">16+ נקודות</div></div>
+  <div class="kpi kw"><div class="kpi-lbl">🌤️ ממוצעים</div><div class="kpi-val" id="kW">—</div><div class="kpi-sub">10–16 נקודות</div></div>
+  <div class="kpi kc"><div class="kpi-lbl">❄️ קרים</div><div class="kpi-val" id="kC">—</div><div class="kpi-sub">מתחת ל-10</div></div>
+  <div class="kpi ka"><div class="kpi-lbl">⏳ בתהליך</div><div class="kpi-val" id="kA">—</div><div class="kpi-sub">שיחה פתוחה</div></div>
+</div>
+
+<!-- Alert -->
+<div class="alert" id="alertEl">
+  <div class="a-ico">🔥</div>
+  <div class="a-body"><strong>לידים חמים ממתינים לשיחת התאמה!</strong><p>צור קשר בהקדם</p></div>
+  <div class="a-chips" id="alertChips"></div>
+</div>
+
+<!-- Controls -->
+<div class="ctrl">
+  <button class="tab on"  data-f="all"  onclick="setFilter(this)">הכל <span class="tcnt" id="tc-all">0</span></button>
+  <button class="tab fh"  data-f="hot"  onclick="setFilter(this)">🔥 חם <span class="tcnt" id="tc-hot">0</span></button>
+  <button class="tab fw"  data-f="warm" onclick="setFilter(this)">🌤️ ממוצע <span class="tcnt" id="tc-warm">0</span></button>
+  <button class="tab fc"  data-f="cold" onclick="setFilter(this)">❄️ קר <span class="tcnt" id="tc-cold">0</span></button>
+  <button class="tab fa"  data-f="prog" onclick="setFilter(this)">⏳ בתהליך <span class="tcnt" id="tc-prog">0</span></button>
+  <button class="tab"     data-f="disq" onclick="setFilter(this)">🚫 נפסלו <span class="tcnt" id="tc-disq">0</span></button>
+  <div class="spacer"></div>
+  <select class="srt-sel" id="srtSel" onchange="render()">
+    <option value="date">תאריך — חדש ראשון</option>
+    <option value="sd">ניקוד — גבוה ראשון</option>
+    <option value="sa">ניקוד — נמוך ראשון</option>
+    <option value="name">שם — א׳ ב׳</option>
+  </select>
+  <div class="srch">
+    <span class="srch-i">🔍</span>
+    <input id="srchIn" type="text" placeholder="חיפוש שם / טלפון..." oninput="render()">
+  </div>
+</div>
+
+<!-- Table -->
+<div class="tbl-wrap">
+  <table>
+    <thead><tr>
+      <th>שם</th><th>סיווג</th><th>ניקוד</th>
+      <th>גיל</th><th>ניסיון</th><th>זמינות</th>
+      <th>שיחה</th><th>סטטוס</th><th>נרשם</th>
+    </tr></thead>
+    <tbody id="tbody"></tbody>
+  </table>
+  <div class="empty" id="emptyEl" style="display:none"><div class="empty-i">🔍</div><p>אין לידים התואמים את הסינון</p></div>
+  <div class="tbl-foot">
+    <span id="footCnt">0 תוצאות</span>
+    <div class="pages" id="pages"></div>
+  </div>
+</div>
+
+<!-- Charts -->
+<div class="chart-row">
+  <div class="cc">
+    <div class="cc-title">התפלגות לידים</div>
+    <div class="donut-wrap">
+      <svg width="110" height="110" viewBox="0 0 110 110">
+        <circle cx="55" cy="55" r="40" fill="none" stroke="#1a1a20" stroke-width="16"/>
+        <circle id="dH" cx="55" cy="55" r="40" fill="none" stroke="#e84040" stroke-width="16" stroke-dasharray="0 251.3" stroke-dashoffset="62.8" style="transition:stroke-dasharray 1s ease"/>
+        <circle id="dW" cx="55" cy="55" r="40" fill="none" stroke="#e87d20" stroke-width="16" stroke-dasharray="0 251.3" stroke-dashoffset="62.8" style="transition:stroke-dasharray 1s ease;transition-delay:.15s"/>
+        <circle id="dC" cx="55" cy="55" r="40" fill="none" stroke="#3a9de8" stroke-width="16" stroke-dasharray="0 251.3" stroke-dashoffset="62.8" style="transition:stroke-dasharray 1s ease;transition-delay:.3s"/>
+        <text x="55" y="51" text-anchor="middle" fill="#ececf4" font-size="16" font-weight="700" font-family="DM Mono,monospace" id="dCtr">0</text>
+        <text x="55" y="66" text-anchor="middle" fill="#888898" font-size="9" font-family="Heebo,sans-serif">לידים</text>
+      </svg>
+      <div class="donut-leg">
+        <div class="leg-item"><span class="leg-lbl"><span class="leg-dot" style="background:#e84040"></span>חמים 🔥</span><span class="leg-val" id="lH">0</span></div>
+        <div class="leg-item"><span class="leg-lbl"><span class="leg-dot" style="background:#e87d20"></span>ממוצעים 🌤️</span><span class="leg-val" id="lW">0</span></div>
+        <div class="leg-item"><span class="leg-lbl"><span class="leg-dot" style="background:#3a9de8"></span>קרים ❄️</span><span class="leg-val" id="lC">0</span></div>
+        <div class="leg-item"><span class="leg-lbl"><span class="leg-dot" style="background:#555"></span>נפסלו</span><span class="leg-val" id="lD">0</span></div>
+      </div>
+    </div>
+  </div>
+  <div class="cc">
+    <div class="cc-title">זמינות לשיחות</div>
+    <div class="bars" id="avBars"></div>
+  </div>
+</div>
+</div><!-- /shell -->
+
+<script>
+// ── Config ──────────────────────────────────────────────────
+const N8N_URL='https://alon09.app.n8n.cloud/webhook/leads-data';
+const DEMO=false; // false → N8N live
+const REFRESH=30000;
+
+// ── Demo data ────────────────────────────────────────────────
+function ago(n,u){const m={m:60000,h:3600000,d:86400000};return new Date(Date.now()-n*m[u]).toISOString()}
+
+const DEMO_LEADS=[
+  {id:1,name:'יונתן כהן',   phone:'972501234567',email:'yoni@gmail.com',  lead_type:'hot', score:19,age:16,has_experience:false,availability:'ערב (16-20)',   meeting_type:'זום',   status:'completed',
+   answers:{familiarity:3,experience:1,understanding:3,hours:4,budget:4,parents:4}},
+  {id:2,name:'דניאל לוי',   phone:'972521111111',email:'daniel@gmail.com',lead_type:'hot', score:17,age:15,has_experience:true, availability:'בוקר (9-12)',   meeting_type:'זום',   status:'completed',
+   answers:{familiarity:4,experience:3,understanding:3,hours:3,budget:3,parents:3},created_at:ago(5,'h')},
+  {id:3,name:'אורי שמש',    phone:'972532222222',email:'uri@gmail.com',   lead_type:'hot', score:16,age:17,has_experience:false,availability:'ערב (16-20)',   meeting_type:'זום',   status:'completed',
+   answers:{familiarity:3,experience:2,understanding:3,hours:4,budget:3,parents:4},created_at:ago(1,'d')},
+  {id:4,name:'אביב שפירא',  phone:'972543333333',email:'aviv@gmail.com',  lead_type:'warm',score:13,age:17,has_experience:false,availability:'צהריים (12-16)',meeting_type:'טלפון', status:'completed',
+   answers:{familiarity:2,experience:1,understanding:3,hours:3,budget:2,parents:3},created_at:ago(1,'d')},
+  {id:5,name:'עומר בן דוד', phone:'972554444444',email:'omer@gmail.com',  lead_type:'warm',score:11,age:14,has_experience:false,availability:'ערב (16-20)',   meeting_type:'זום',   status:'in_progress',
+   answers:{familiarity:2,experience:1},created_at:ago(30,'m')},
+  {id:6,name:'שי כהן',      phone:'972565555555',email:'shai@gmail.com',  lead_type:'warm',score:10,age:16,has_experience:true, availability:'בוקר (9-12)',   meeting_type:'טלפון', status:'completed',
+   answers:{familiarity:3,experience:3,understanding:2,hours:2,budget:2},created_at:ago(2,'d')},
+  {id:7,name:'נועם פרידמן', phone:'972576666666',email:'noam@gmail.com',  lead_type:'cold',score:4, age:13,has_experience:false,availability:'בוקר (9-12)',   meeting_type:'טלפון', status:'completed',
+   answers:{familiarity:1,experience:1,understanding:1,hours:1,budget:1,parents:2},created_at:ago(3,'d')},
+  {id:8,name:'תמר גולן',    phone:'972587777777',email:'tamar@gmail.com', lead_type:'cold',score:2, age:13,has_experience:false,availability:'צהריים (12-16)',meeting_type:'טלפון', status:'completed',
+   answers:{familiarity:1,experience:1,understanding:1,hours:1,budget:1,parents:1},created_at:ago(4,'d')},
+  {id:9,name:'ליאל מזרחי',  phone:'972598888888',email:'liel@gmail.com',  lead_type:'disqualified',score:0,age:10,has_experience:false,availability:'—',meeting_type:'—',status:'disqualified',
+   answers:{},created_at:ago(2,'d')},
+  {id:10,name:'תום גולדברג', phone:'972509999999',email:'tom@gmail.com',  lead_type:'pending',score:0,age:null,has_experience:false,availability:'—',meeting_type:'—',status:'in_progress',
+   answers:{},created_at:ago(5,'m')},
+];
+DEMO_LEADS.forEach(l=>{if(!l.created_at)l.created_at=ago(2,'h')});
+
+// ── Question definitions (for drawer) ───────────────────────
+const QUESTIONS=[
+  {key:'familiarity', label:'מה רמת ההיכרות שלך עם אלעד רבי?',
+   opts:['שמעתי עליו השבוע','שמעתי עליו מזמן וצפיתי בכמה סרטונים','צופה בתוכן שלו כבר תקופה ועוקב','הסתפרתי אצלו בעבר ועוקב כבר הרבה זמן'],
+   pts:[0,1,2,4], tone:['neg','mid','pos','pos']},
+  {key:'experience', label:'מה הכי מתאר את הניסיון שלך בתחום הספרות?', infoOnly:true,
+   opts:['אין לי שום ידע בכלל / רק צפיתי בתכנים','סיפרתי כמה חברים בקטנה','סיפרתי מעל 15 אנשים, יודע את הבסיס ויש לי ציוד','עברתי קורס שלם ויש לי ניסיון'],
+   pts:[null,null,null,null], tone:['neu','neu','neu','neu']},
+  {key:'understanding', label:'האם צפית בסרטון ההסברה במלואו והבנת את אופי המסלול?',
+   opts:['לא היה לי כוח לראות ואין לי מושג','ראיתי קצת ולא ממש הבנתי','ראיתי הכל ואני חושב שהבנתי בגדול'],
+   pts:[0,0.5,2], tone:['neg','mid','pos']},
+  {key:'hours', label:'כמה שעות בשבוע אתה מוכן להשקיע במסלול?',
+   opts:['3-4 שעות','6-7 שעות','8-10 שעות','כמה שצריך - אני בא לתת בראש! 💥'],
+   pts:[0,1,2,4], tone:['neg','mid','pos','pos']},
+  {key:'budget', label:'כמה כסף אתה מוכן להשקיע במסלול שמבטיח 100% תוצאות?',
+   opts:['1,500-2,000₪','4,500₪','7,000₪','10,000₪'],
+   pts:[-2,1,2,2], tone:['neg','mid','pos','pos']},
+  {key:'parents', label:'האם ההורים שלך מודעים שאתה רוצה להירשם לאקדמיה?', ageGated:true,
+   opts:['לא סיפרתי להם','זרקתי להם משהו על זה פה ושם','כן הם יודעים אבל צריכים שכנוע','הם יודעים ותומכים בי 💪'],
+   pts:[0,0,1,3], tone:['neg','neg','mid','pos']},
+];
+
+// ── State ────────────────────────────────────────────────────
+let leads=[],curF='all',curP=1;
+const PER=8;
+const AVC=['#7c5cfc','#e84040','#e87d20','#3a9de8','#2ecc8e','#c9a84c','#ff6b9d'];
+
+// ── Fetch ────────────────────────────────────────────────────
+async function fetchLeads(){
+  if(DEMO){applyLeads(DEMO_LEADS);return}
+  const btn=document.getElementById('refBtn');
+  try{
+    if(btn)btn.classList.add('spin');
+    const r=await fetch(N8N_URL,{method:'GET',headers:{'Accept':'application/json'}});
+    if(r.ok){
+      const raw=await r.text();
+      try{
+        const d=JSON.parse(raw);
+        const arr=Array.isArray(d)?d:(d.data?d.data:[d]);
+        if(arr.length>0){
+          applyLeads(arr);
+          document.getElementById('statusPill').textContent='מחובר ✓';
+          return;
+        }
+      }catch(e){console.error('JSON parse error:',e,raw.slice(0,200));}
+    } else {
+      console.warn('Fetch error status:',r.status);
+    }
+  }catch(e){console.warn('Fetch failed:',e.message)}
+  finally{if(btn)btn.classList.remove('spin')}
+  applyLeads(DEMO_LEADS);
+}
+function applyLeads(d){
+  // Handle n8n response formats: array, {data:[]}, or [{json:{...}}]
+  let arr=Array.isArray(d)?d:[];
+  if(!Array.isArray(d)&&d&&d.data)arr=Array.isArray(d.data)?d.data:[d.data];
+  // Handle n8n items format [{json:{...}}]
+  if(arr.length>0&&arr[0].json)arr=arr.map(i=>i.json);
+  leads=arr.map(l=>{
+    if(typeof l.answers==='string'){try{l.answers=JSON.parse(l.answers)}catch(e){l.answers={}}}
+    if(!l.answers||typeof l.answers!=='object')l.answers={};
+    if(!l.created_at)l.created_at=new Date().toISOString();
+    return l;
+  });
+  updateKPI();updateCharts();updateAlert();updateCounts();render();
+}
+
+// ── KPI ──────────────────────────────────────────────────────
+function updateKPI(){
+  const h=leads.filter(l=>l.lead_type==='hot').length;
+  const w=leads.filter(l=>l.lead_type==='warm').length;
+  const c=leads.filter(l=>l.lead_type==='cold').length;
+  const a=leads.filter(l=>l.status==='in_progress').length;
+  [['kT',leads.length],['kH',h],['kW',w],['kC',c],['kA',a]].forEach(([id,v])=>{
+    const el=document.getElementById(id);let cur=0;
+    const t=setInterval(()=>{cur=Math.min(cur+Math.max(1,Math.ceil(v/20)),v);el.textContent=cur;if(cur>=v)clearInterval(t)},30);
+  });
+}
+
+// ── Alert ────────────────────────────────────────────────────
+function updateAlert(){
+  const hd=leads.filter(l=>l.lead_type==='hot'&&l.status==='completed');
+  document.getElementById('alertEl').classList.toggle('show',hd.length>0);
+  document.getElementById('alertChips').innerHTML=hd.slice(0,4).map(l=>`<span class="chip">${l.name}</span>`).join('');
+}
+
+// ── Charts ───────────────────────────────────────────────────
+function updateCharts(){
+  const h=leads.filter(l=>l.lead_type==='hot').length;
+  const w=leads.filter(l=>l.lead_type==='warm').length;
+  const c=leads.filter(l=>l.lead_type==='cold').length;
+  const d=leads.filter(l=>l.lead_type==='disqualified').length;
+  const tot=leads.length||1,ci=251.3;
+  [['lH',h],['lW',w],['lC',c],['lD',d],['dCtr',leads.length]].forEach(([id,v])=>document.getElementById(id).textContent=v);
+  const pH=(h/tot)*ci,pW=(w/tot)*ci,pC=(c/tot)*ci;
+  document.getElementById('dH').style.strokeDasharray=`${pH} ${ci-pH}`;
+  document.getElementById('dH').style.strokeDashoffset='62.8';
+  const oW=62.8-pH;
+  document.getElementById('dW').style.strokeDasharray=`${pW} ${ci-pW}`;
+  document.getElementById('dW').style.strokeDashoffset=oW;
+  document.getElementById('dC').style.strokeDasharray=`${pC} ${ci-pC}`;
+  document.getElementById('dC').style.strokeDashoffset=oW-pW;
+  const av={'בוקר (9-12)':0,'צהריים (12-16)':0,'ערב (16-20)':0};
+  leads.forEach(l=>{if(av[l.availability]!==undefined)av[l.availability]++});
+  const mx=Math.max(...Object.values(av),1);
+  const cols={'בוקר (9-12)':'#c9a84c','צהריים (12-16)':'#3a9de8','ערב (16-20)':'#e87d20'};
+  const lbls={'בוקר (9-12)':'בוקר ☀️','צהריים (12-16)':'צהריים 🌤️','ערב (16-20)':'ערב 🌙'};
+  document.getElementById('avBars').innerHTML=Object.entries(av).map(([k,v])=>`
+    <div class="bar-r"><span class="bar-lbl">${lbls[k]}</span>
+    <div class="bar-track"><div class="bar-seg" style="width:${(v/mx)*100}%;background:${cols[k]}"></div></div>
+    <span class="bar-val">${v}</span></div>`).join('');
+}
+
+// ── Counts ───────────────────────────────────────────────────
+function updateCounts(){
+  document.getElementById('tc-all').textContent  = leads.length;
+  document.getElementById('tc-hot').textContent  = leads.filter(l=>l.lead_type==='hot').length;
+  document.getElementById('tc-warm').textContent = leads.filter(l=>l.lead_type==='warm').length;
+  document.getElementById('tc-cold').textContent = leads.filter(l=>l.lead_type==='cold').length;
+  document.getElementById('tc-prog').textContent = leads.filter(l=>l.status==='in_progress').length;
+  document.getElementById('tc-disq').textContent = leads.filter(l=>l.lead_type==='disqualified').length;
+}
+
+// ── Filter / sort ────────────────────────────────────────────
+function setFilter(btn){
+  document.querySelectorAll('.tab').forEach(b=>b.classList.remove('on'));
+  btn.classList.add('on');curF=btn.dataset.f;curP=1;render();
+}
+function getFiltered(){
+  const q=document.getElementById('srchIn').value.toLowerCase();
+  return leads.filter(l=>{
+    const mf=curF==='all'?true:curF==='hot'?l.lead_type==='hot':curF==='warm'?l.lead_type==='warm':
+      curF==='cold'?l.lead_type==='cold':curF==='prog'?l.status==='in_progress':l.lead_type==='disqualified';
+    const ms=!q||l.name.toLowerCase().includes(q)||(l.phone||'').includes(q);
+    return mf&&ms;
+  });
+}
+function getSorted(arr){
+  const s=document.getElementById('srtSel').value;
+  return[...arr].sort((a,b)=>s==='sd'?b.score-a.score:s==='sa'?a.score-b.score:s==='name'?a.name.localeCompare(b.name,'he'):new Date(b.created_at)-new Date(a.created_at));
+}
+
+// ── Helpers ──────────────────────────────────────────────────
+function badge(type){
+  const m={hot:'🔥 חם',warm:'🌤️ ממוצע',cold:'❄️ קר',disqualified:'🚫 נפסל',pending:'⏳ בתהליך'};
+  const k={hot:'h',warm:'w',cold:'c',disqualified:'d',pending:'p'};
+  return`<span class="badge ${k[type]||'p'}">${m[type]||'⏳'}</span>`;
+}
+function scoreBar(sc,type){
+  const c={hot:'#e84040',warm:'#e87d20',cold:'#3a9de8',disqualified:'#555',pending:'#c9a84c'}[type]||'#c9a84c';
+  const pct=Math.min(100,(sc/22)*100);
+  return`<div class="sc-cell"><span class="sc-n" style="color:${c}">${sc}</span><div class="sc-bg"><div class="sc-fill" style="width:${pct}%;background:${c}"></div></div></div>`;
+}
+function statusEl(s){
+  return s==='completed'?'<span class="sdot done">הושלם</span>':s==='in_progress'?'<span class="sdot prog">בתהליך</span>':'<span class="sdot disq">נפסל</span>';
+}
+function fmtDate(iso){
+  const d=new Date(iso),df=Date.now()-d;
+  if(df<60000)return'עכשיו';if(df<3600000)return`${Math.floor(df/60000)} דק'`;
+  if(df<86400000)return`${Math.floor(df/3600000)} שע'`;
+  return d.toLocaleDateString('he-IL',{day:'2-digit',month:'2-digit'});
+}
+
+// ── Render table ─────────────────────────────────────────────
+function render(){
+  const fl=getSorted(getFiltered());
+  const tot=fl.length,pages=Math.max(1,Math.ceil(tot/PER));
+  if(curP>pages)curP=1;
+  const sl=fl.slice((curP-1)*PER,curP*PER);
+  const tbody=document.getElementById('tbody');
+  document.getElementById('footCnt').textContent=`${tot} תוצאות`;
+  document.getElementById('emptyEl').style.display=sl.length?'none':'block';
+  tbody.innerHTML=sl.map((l,i)=>{
+    const gIdx=(curP-1)*PER+i;
+    const c=AVC[gIdx%AVC.length];
+    const av=`<div class="av" style="background:linear-gradient(135deg,${c}44,${c}22);color:${c};width:34px;height:34px;border-radius:9px;display:inline-flex;align-items:center;justify-content:center;font-size:14px;font-weight:800;border:1px solid rgba(255,255,255,.06)">${(l.name||'?')[0]}</div>`;
+    return`<tr>
+      <td>
+        <div class="name-btn" onclick="openDrawer(${l.id})">
+          ${av}
+          <div>
+            <div class="name-txt">${l.name}</div>
+            <small class="name-phone">${l.phone}</small>
+          </div>
+          <span class="name-arrow">← פרטים</span>
+        </div>
+      </td>
+      <td>${badge(l.lead_type)}</td>
+      <td>${scoreBar(l.score,l.lead_type)}</td>
+      <td style="font-family:var(--mono);color:var(--sub)">${l.age||'—'}</td>
+      <td>${l.has_experience?'<span style="font-size:12px;color:var(--green);background:var(--green-bg);padding:3px 8px;border-radius:6px;font-weight:600">✓ כן</span>':'<span style="font-size:12px;color:var(--sub)">—</span>'}</td>
+      <td style="color:var(--sub);font-size:13px">${l.availability||'—'}</td>
+      <td style="color:var(--sub);font-size:13px">${l.meeting_type||'—'}</td>
+      <td>${statusEl(l.status)}</td>
+      <td style="color:var(--sub);font-size:12px;font-family:var(--mono)">${fmtDate(l.created_at)}</td>
+    </tr>`;
+  }).join('');
+  // Pages
+  const el=document.getElementById('pages');
+  el.innerHTML=pages<=1?'':Array.from({length:pages},(_,i)=>
+    `<button class="pg ${i+1===curP?'on':''}" onclick="goPage(${i+1})">${i+1}</button>`).join('');
+}
+function goPage(p){curP=p;render()}
+
+// ── DRAWER ────────────────────────────────────────────────────
+function openDrawer(id){
+  const lead=leads.find(l=>l.id===id);
+  if(!lead)return;
+
+  const type=lead.lead_type;
+  const gIdx=leads.indexOf(lead);
+  const c=AVC[gIdx%AVC.length];
+
+  // Hero
+  const hero=document.getElementById('drwHero');
+  hero.className=`drw-hero ${type}`;
+
+  // Avatar
+  document.getElementById('drwAv').style.cssText=`background:linear-gradient(135deg,${c}44,${c}22);color:${c}`;
+  document.getElementById('drwAv').textContent=(lead.name||'?')[0];
+
+  // Name / phone
+  document.getElementById('drwName').textContent=lead.name;
+  document.getElementById('drwPhone').textContent=lead.phone;
+
+  // Badges row
+  const typeLabel={hot:'🔥 חם',warm:'🌤️ ממוצע',cold:'❄️ קר',disqualified:'🚫 נפסל',pending:'⏳ בתהליך'};
+  const typeCls={hot:'h',warm:'w',cold:'c',disqualified:'d',pending:'p'};
+  const scoreColor={hot:'var(--hot)',warm:'var(--warm)',cold:'var(--cold)',disqualified:'#555',pending:'var(--gold)'}[type]||'var(--gold)';
+  document.getElementById('drwBadges').innerHTML=`
+    <span class="badge ${typeCls[type]||'p'}">${typeLabel[type]||'—'}</span>
+    <div class="score-pill" style="border-color:${scoreColor}20">
+      <span style="color:${scoreColor}">${lead.score}</span>
+      <span class="of">/ 22 נקודות</span>
+    </div>
+    ${lead.has_experience?'<span class="badge" style="background:var(--green-bg);color:var(--green);border-color:rgba(46,204,142,.25)">✓ בעל ניסיון</span>':''}
+  `;
+
+  // Contact info
+  document.getElementById('di-name').textContent   = lead.name||'—';
+  document.getElementById('di-age').textContent     = lead.age ? `${lead.age} שנים` : '—';
+  document.getElementById('di-phone').textContent   = lead.phone||'—';
+  document.getElementById('di-email').textContent   = lead.email||'—';
+  document.getElementById('di-avail').textContent   = lead.availability||'—';
+  document.getElementById('di-meeting').textContent = lead.meeting_type||'—';
+  document.getElementById('di-date').textContent    = new Date(lead.created_at).toLocaleString('he-IL');
+  document.getElementById('di-score').textContent   = `${lead.score} / 22`;
+
+  // Answers
+  let ans={};
+  try{ans=typeof lead.answers==='string'?JSON.parse(lead.answers):(lead.answers||{})}catch{}
+
+  const ageVal=lead.age||99;
+  const drwAns=document.getElementById('drwAnswers');
+  drwAns.innerHTML=QUESTIONS.filter(q=>!q.ageGated||(ageVal>=12&&ageVal<=18)).map(q=>{
+    const chosen=ans[q.key]; // 1-indexed
+    if(chosen===undefined&&Object.keys(ans).length===0){
+      return`<div class="q-block"><div class="q-label">${q.label}</div><div style="color:var(--sub);font-size:13px;padding:8px 12px;background:var(--s2);border-radius:10px;border:1px solid var(--border)">טרם נענה</div></div>`;
+    }
+    const opts=q.opts.map((opt,i)=>{
+      const isChosen=chosen===(i+1);
+      const tone=q.tone[i];
+      const pts=q.pts[i];
+      const ptsStr=q.infoOnly?'מידע בלבד':pts===null?'—':pts>=2?`+${pts}`:pts<0?`${pts}`:`+${pts}`;
+      return`<div class="q-opt ${isChosen?`chosen ${tone}`:''}">
+        <div class="q-check">${isChosen?'✓':''}</div>
+        <span>${i+1}. ${opt}</span>
+        ${!q.infoOnly?`<span class="q-pts">${ptsStr}</span>`:`<span class="q-pts" style="color:var(--cold)">מידע</span>`}
+      </div>`;
+    }).join('');
+    const infoNote=q.infoOnly?'<div style="font-size:11px;color:var(--cold);margin-bottom:8px;padding:6px 10px;background:var(--cold-bg);border-radius:7px;border:1px solid rgba(58,157,232,.2)">ℹ️ שאלת מידע בלבד — לא משפיעה על הניקוד</div>':'';
+    return`<div class="q-block">${infoNote}<div class="q-label">${q.label}</div><div class="q-opts">${opts}</div></div>`;
+  }).join('');
+
+  // Open
+  document.getElementById('overlay').classList.add('open');
+  document.getElementById('drawer').classList.add('open');
+  document.body.style.overflow='hidden';
+}
+
+function closeDrawer(){
+  document.getElementById('overlay').classList.remove('open');
+  document.getElementById('drawer').classList.remove('open');
+  document.body.style.overflow='';
+}
+
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeDrawer()});
+
+// ── Refresh ──────────────────────────────────────────────────
+async function doRefresh(){
+  const btn=document.getElementById('btnRef');
+  btn.classList.add('spin');btn.disabled=true;
+  await fetchLeads();
+  setTimeout(()=>{btn.classList.remove('spin');btn.disabled=false},600);
+}
+
+// ── Init ─────────────────────────────────────────────────────
+fetchLeads();
+// Auto-refresh disabled
+</script>
+</body>
+</html>
